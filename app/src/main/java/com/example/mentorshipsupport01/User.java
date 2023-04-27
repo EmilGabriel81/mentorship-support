@@ -1,19 +1,20 @@
 package com.example.mentorshipsupport01;
 
+import java.util.UUID;
+
 public class User {
     private String firstName;
     private String lastName;
     private String email;
 
-    private static int count=0;
-    private int userId =0;
+    private long userId;
 
     public User(){
 
     }
 
     public User(String firstName, String lastName, String email) {
-        userId = ++count;
+        this.userId = UUID.randomUUID().getMostSignificantBits();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -31,7 +32,7 @@ public class User {
         return email;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
