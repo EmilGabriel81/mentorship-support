@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,17 +33,9 @@ public class MainActivity extends AppCompatActivity {
     private Button uploadButton;
     private Button downloadButton;
 
-    //Fields
-    private String firstName;
-    private String lastName;
-    private String email;
-
-    private User user;
-
     //Firebase database and tools
     private DatabaseReference databaseReference;
     private StringBuilder sb;
-
 
 
     @Override
@@ -57,12 +50,12 @@ public class MainActivity extends AppCompatActivity {
         uploadButton = findViewById(R.id.upload);
         downloadButton = findViewById(R.id.download);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("User");
 
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    executeUpload();
+                executeUpload();
             }
         });
 
@@ -77,29 +70,35 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void executeUpload() {
-        //Get the values
-        firstName = String.valueOf(firstNameEditText.getEditText().getText());
-        lastName = String.valueOf(lastNameEditText.getEditText().getText());
-        email = String.valueOf(emailEditText.getEditText().getText());
+        String firstName = String.valueOf(firstNameEditText.getEditText().getText());
+        String lastName = String.valueOf(lastNameEditText.getEditText().getText());
+        String email = String.valueOf(emailEditText.getEditText().getText());
 
-        user = new User(firstName, lastName, email);
+        if (firstName.equals("") || lastName.equals("") || email.equals("")) {
+            Toast.makeText(MainActivity.this, "Fields not valid", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        databaseReference.child("users").child(String.valueOf(user.getUserId())).setValue(user);
+        User user = new User(firstName, lastName, email);
 
-        //print messages
-       // System.out.println("Executed successfully: "+user.toString());
-        Toast.makeText(MainActivity.this, "Executed successfully", Toast.LENGTH_SHORT).show();
+        databaseReference.push().setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(MainActivity.this, "Executed successfully", Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
         //Clear the fields
-        if(firstNameEditText != null){
+        if (firstNameEditText != null) {
             firstNameEditText.getEditText().getText().clear();
         }
 
-        if(lastNameEditText != null){
+        if (lastNameEditText != null) {
             lastNameEditText.getEditText().getText().clear();
         }
 
-        if(emailEditText != null){
+        if (emailEditText != null) {
             emailEditText.getEditText().getText().clear();
         }
     }
@@ -111,11 +110,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         //Get map of users in datasnapshot
-                        //collectUserData((Map<String,Object>) dataSnapshot.getValue());
+
+                        //Todo: move the code from bellow to the required method
+
                         List<User> users = new ArrayList<>();
                         System.out.println("download button pressed");
-                        Log.e("Count",""+dataSnapshot.getChildrenCount());
-                        for(DataSnapshot postSnapshot: dataSnapshot.getChildren()){
+                        Log.e("Count", "" + dataSnapshot.getChildrenCount());
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             User user = postSnapshot.getValue(User.class);
                             users.add(user);
                         }
@@ -133,9 +134,10 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-    private void collectUserData(Map<String, Object> users){
+    private void collectUserData(Map<String, Object> users) {
+        //Todo: remove this code and replace it with the one from the above method. you can also comment it
         List<User> userList = new ArrayList<>();
-        for (Map.Entry<String, Object> entry : users.entrySet()){
+        for (Map.Entry<String, Object> entry : users.entrySet()) {
             Map singleUser = (Map) entry.getValue();
             userList.add((User) singleUser);
         }
