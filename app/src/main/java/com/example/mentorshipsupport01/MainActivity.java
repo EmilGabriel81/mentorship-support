@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -30,12 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private TextInputLayout lastNameEditText;
     private TextInputLayout emailEditText;
 
-    private Button uploadButton;
-    private Button downloadButton;
-
     //Firebase database and tools
     private DatabaseReference databaseReference;
-    private StringBuilder sb;
 
 
     @Override
@@ -43,12 +38,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sb = new StringBuilder();
         firstNameEditText = findViewById(R.id.firstName);
         lastNameEditText = findViewById(R.id.lastName);
         emailEditText = findViewById(R.id.email);
-        uploadButton = findViewById(R.id.upload);
-        downloadButton = findViewById(R.id.download);
+        Button uploadButton = findViewById(R.id.upload);
+        Button downloadButton = findViewById(R.id.download);
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("User");
 
@@ -104,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void executeDownload() {
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("users");
         databaseReference.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -114,7 +107,8 @@ public class MainActivity extends AppCompatActivity {
                         //Todo: move the code from bellow to the required method
 
                         List<User> users = new ArrayList<>();
-                        System.out.println("download button pressed");
+                        Toast.makeText(MainActivity.this, "Objects in the Db: "+dataSnapshot.getChildrenCount(), Toast.LENGTH_SHORT).show();
+
                         Log.e("Count", "" + dataSnapshot.getChildrenCount());
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             User user = postSnapshot.getValue(User.class);
@@ -122,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         users.stream().forEach(user -> System.out.println(user.toString()));
+                        Log.e("Button pressed: ", "=============================================");
 
                     }
 
