@@ -1,5 +1,6 @@
 package com.example.mentorshipsupport01;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -41,8 +42,10 @@ public class MainActivity extends AppCompatActivity {
         firstNameEditText = findViewById(R.id.firstName);
         lastNameEditText = findViewById(R.id.lastName);
         emailEditText = findViewById(R.id.email);
+
         Button uploadButton = findViewById(R.id.upload);
         Button downloadButton = findViewById(R.id.download);
+        Button secondActivity = findViewById(R.id.secondactivity);
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("User");
 
@@ -57,6 +60,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 executeDownload();
+            }
+        });
+
+        secondActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), DisplayUsersActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -114,10 +125,10 @@ public class MainActivity extends AppCompatActivity {
                             User user = postSnapshot.getValue(User.class);
                             users.add(user);
                         }
-
+                        Log.e("Button pressed: ", "=============================================");
                         users.stream().forEach(user -> System.out.println(user.toString()));
                         Log.e("Button pressed: ", "=============================================");
-
+                           // executeDownload();
                     }
 
                     @Override
