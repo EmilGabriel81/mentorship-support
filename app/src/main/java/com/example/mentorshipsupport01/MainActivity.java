@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         secondActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //1. to send the database reference
                 Intent intent = new Intent(getApplicationContext(), DisplayUsersActivity.class);
                 startActivity(intent);
             }
@@ -114,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         //Get map of users in datasnapshot
-
                         //Todo: move the code from bellow to the required method
 
                         List<User> users = new ArrayList<>();
