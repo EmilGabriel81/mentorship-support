@@ -17,17 +17,6 @@ public class UserViewHolder extends RecyclerView.ViewHolder{
     ImageView imageView;
     TextView firstName, lastName, email;
 
-    private ArrayList<User> userList;
-//    private UserViewHolder.OnItemClickListener mListener;
-//
-//    public interface OnItemClickListener {
-//        void onItemClick(int position);
-//    }
-
-//    public void setOnItemClickListener(UserViewHolder.OnItemClickListener listener) {
-//        mListener = listener;
-//    }
-
     public UserViewHolder(@NonNull View itemView) {
         super(itemView);
         imageView = itemView.findViewById(R.id.imageview);

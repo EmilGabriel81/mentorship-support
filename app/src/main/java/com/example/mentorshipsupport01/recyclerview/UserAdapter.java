@@ -15,9 +15,19 @@ import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserViewHolder>{
 
+   private Context context;
+   private List<User> users;
 
-    Context context;
-    List<User> users;
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(User user);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
+
 
     public UserAdapter(Context context, List<User> users) {
         this.context = context;
@@ -30,7 +40,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder>{
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view =  inflater.inflate(R.layout.user_view, parent,false);
+        View view = inflater.inflate(R.layout.user_view, parent,false);
         return new UserViewHolder(view);
     }
 
@@ -39,6 +49,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder>{
         holder.firstName.setText(users.get(position).getFirstName());
         holder.lastName.setText(users.get(position).getLastName());
         holder.email.setText(users.get(position).getEmail());
+        holder.itemView.setOnClickListener(view -> {
+            mListener.onItemClick(users.get(position));
+        });
     }
 
     @Override
