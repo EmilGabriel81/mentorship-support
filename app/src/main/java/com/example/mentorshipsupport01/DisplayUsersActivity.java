@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
 
+import android.util.Log;
 import com.example.mentorshipsupport01.recyclerview.UserAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,7 +22,7 @@ import java.util.List;
 public class DisplayUsersActivity extends AppCompatActivity {
 
     private DatabaseReference databaseReference;
-    List<User> users;
+    private List<User> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,8 @@ public class DisplayUsersActivity extends AppCompatActivity {
         initDownload();
 
 
-        List<User> hardcodedUsers = new ArrayList<>(Arrays.asList(new User("Ulloriaq","Vladimirs", "vlad@mail"),
+        List<User> hardcodedUsers = new ArrayList<>(Arrays.asList(
+                new User("Ulloriaq","Vladimirs", "vlad@mail"),
                 new User("Ulloriaq","Vladimirs", "vlad@mail"),
                 new User("Ulloriaq","Vladimirs", "vlad@mail"),
                 new User("Ulloriaq","Vladimirs", "vlad@mail"),
@@ -47,9 +48,16 @@ public class DisplayUsersActivity extends AppCompatActivity {
 
 
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new UserAdapter(getApplicationContext(), hardcodedUsers));
+
+
+
+
+
+
+
+//        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setAdapter(new UserAdapter(getApplicationContext(), hardcodedUsers));
     }
 
     private void initDownload() {

@@ -16,8 +16,8 @@ import java.util.List;
 public class UserAdapter extends RecyclerView.Adapter<UserViewHolder>{
 
 
-    Context context;
-    List<User> users;
+    private Context context;
+    private List<User> users;
 
     public UserAdapter(Context context, List<User> users) {
         this.context = context;
@@ -30,7 +30,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder>{
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view =  inflater.inflate(R.layout.user_view, parent,false);
+        View view = inflater.inflate(R.layout.user_view, parent,false);
         return new UserViewHolder(view);
     }
 
@@ -46,22 +46,4 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder>{
         return users.size();
     }
 
-    //The VieHolder --------------------------------
-//    public static class UserViewHolder extends RecyclerView.ViewHolder{
-//
-//        private ArrayList<User> userList;
-//        private OnItemClickListener mListener;
-//
-//        public interface OnItemClickListener {
-//            void onItemClick(int position);
-//        }
-//
-//        public void setOnItemClickListener(OnItemClickListener listener) {
-//            mListener = listener;
-//        }
-//
-//        public UserViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
-//            super(itemView);
-//        }
-//    }
 }
