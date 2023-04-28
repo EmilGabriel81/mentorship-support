@@ -59,22 +59,4 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder>{
         return users.size();
     }
 
-    //The VieHolder --------------------------------
-//    public static class UserViewHolder extends RecyclerView.ViewHolder{
-//
-//        private ArrayList<User> userList;
-//        private OnItemClickListener mListener;
-//
-//        public interface OnItemClickListener {
-//            void onItemClick(int position);
-//        }
-//
-//        public void setOnItemClickListener(OnItemClickListener listener) {
-//            mListener = listener;
-//        }
-//
-//        public UserViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
-//            super(itemView);
-//        }
-//    }
 }
