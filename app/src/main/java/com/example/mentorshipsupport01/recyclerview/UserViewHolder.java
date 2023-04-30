@@ -6,7 +6,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.mentorshipsupport01.R;
 
 public class UserViewHolder extends RecyclerView.ViewHolder{
